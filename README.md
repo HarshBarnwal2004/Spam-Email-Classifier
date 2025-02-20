@@ -45,4 +45,6 @@ cd Spam-Email-Classifier
 pip install -r requirements.txt
 ```
 ### 3️⃣ Run the Classifier
-```python app.py```
+```
+python app.py
+```
