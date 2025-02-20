@@ -48,3 +48,85 @@ pip install -r requirements.txt
 ```
 python app.py
 ```
+# Deployment on AWS EC2
+
+* 1️⃣ Launch an AWS EC2 Instance
+1. Go to AWS Console → EC2 → Launch Instance
+2. Choose Ubuntu 20.04 / 22.04 as the OS
+3. Select an instance type (e.g., t2.micro for free tier)
+4. Configure Security Group:
+ * Allow SSH (port 22)
+ * Allow HTTP (port 80)
+ * Allow Custom TCP Rule (port 5000 or 8000 for Flask)
+5. Launch and connect via SSH
+
+* 2️⃣ Connect to EC2 Instance
+```
+ssh -i your-key.pem ubuntu@your-ec2-public-ip
+```
+* 3️⃣ Install Required Packages
+  ```
+  sudo apt update && sudo apt upgrade -y
+  sudo apt install python3-pip python3-venv nginx -y
+  ```
+* 4️⃣ Clone Your GitHub Repo & Install Dependencies
+  ```
+  git clone https://github.com/HarshBarnwal2004/Spam-Email-Classifier.git
+  cd Spam-Email-Classifier
+  python3 -m venv venv
+  source venv/bin/activate
+  pip install -r requirements.txt
+  ```
+* 5️⃣ Run Flask App with Gunicorn
+  ```
+  gunicorn --bind 0.0.0.0:5000 app:app
+  ```
+* 7️⃣ Set Up Nginx as a Reverse Proxy
+  1. Open the Nginx config file
+     ```
+     sudo nano /etc/nginx/sites-available/spam_classifier
+     ```
+  2. Add the following configuration
+     ```
+     server {
+     listen 80;
+     server_name your-ec2-public-ip;
+
+     location / {
+        proxy_pass http://127.0.0.1:5000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+       }
+     }
+     ```
+  3. Enable the config and restart Nginx:
+   ```
+   sudo ln -s /etc/nginx/sites-available/spam_classifier /etc/nginx/sites-enabled
+   sudo systemctl restart nginx
+   ```
+* 8️⃣ Keep the Flask App Running (Using Supervisor)
+  To prevent the app from stopping when you disconnect:
+  ```
+  sudo apt install supervisor -y
+  sudo nano /etc/supervisor/conf.d/spam_classifier.conf
+  [program:spam_classifier]
+  command=/home/ubuntu/Spam-Email-Classifier/venv/bin/gunicorn --bind 0.0.0.0:5000 app:app
+  directory=/home/ubuntu/Spam-Email-Classifier
+  autostart=true
+  autorestart=true
+  stderr_logfile=/var/log/spam_classifier.err.log
+  stdout_logfile=/var/log/spam_classifier.out.log
+  sudo supervisorctl reread
+  sudo supervisorctl update
+  sudo supervisorctl start spam_classifier
+  ```
+* 🚀 Done! Your API is Live
+  ```
+  http://your-ec2-public-ip/
+  ```
+
+
+   
+   
+
