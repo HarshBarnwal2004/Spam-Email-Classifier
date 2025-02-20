@@ -8,7 +8,7 @@ Spam Email Classifier is a machine learning-based application that detects and c
 - NLTK / SpaCy (Natural Language Processing)
 - Pandas & NumPy (Data Processing)
 - Pickle (Model Serialization)
-- Flask / Streamlit (For deployment, if applicable)
+- Flask / Streamlit / AWS (For deployment, if applicable)
 - Git & GitHub (Version Control)
 
 ## 📌 Features
