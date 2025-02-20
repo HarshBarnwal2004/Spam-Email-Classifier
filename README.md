@@ -34,8 +34,10 @@ Git & GitHub (Version Control)
 4️⃣ Model Evaluation: Evaluated using accuracy, precision, recall, and F1-score.
 5️⃣ Deployment: Saved the trained model using Pickle for quick predictions.
 
-# 🚀 How to Run the Project
-***git clone https://github.com/HarshBarnwal2004/Spam-Email-Classifier.git***
-***cd Spam-Email-Classifier***
-***pip install -r requirements.txt***
-***python app.py***
+## 🚀 How to Run the Project
+### 1️⃣ Clone the Repository  
+```bash
+git clone https://github.com/HarshBarnwal2004/Spam-Email-Classifier.git
+cd Spam-Email-Classifier
+pip install -r requirements.txt
+python app.py
