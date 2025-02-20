@@ -3,13 +3,13 @@
 Spam Email Classifier is a machine learning-based application that detects and classifies emails as spam or not spam. Using Natural Language Processing (NLP) techniques, the model analyzes the content of an email and predicts whether it is a legitimate message or spam.
 
 ## 🛠️ Technologies Used
--Python 🐍
--Scikit-Learn (Machine Learning)
--NLTK / SpaCy (Natural Language Processing)
--Pandas & NumPy (Data Processing)
--Pickle (Model Serialization)
--Flask / Streamlit (For deployment, if applicable)
--Git & GitHub (Version Control)
+- Python 🐍
+- Scikit-Learn (Machine Learning)
+- NLTK / SpaCy (Natural Language Processing)
+- Pandas & NumPy (Data Processing)
+- Pickle (Model Serialization)
+- Flask / Streamlit (For deployment, if applicable)
+- Git & GitHub (Version Control)
 
 ## 📌 Features
 - ✅ Preprocesses email text (removes stopwords, tokenization, vectorization)
